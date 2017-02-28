@@ -18,7 +18,7 @@ export _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT
 [ -n "${_BRANCH}" ] || _BRANCH="$(git symbolic-ref --short --quiet HEAD)"
 [ -n "${_BRANCH}" ] || _BRANCH='master'
 export _URL=''
-which git > /dev/null && _URL="$(git ls-remote --get-url | sed 's|.git$||')"
+which git > /dev/null 2>&1 && _URL="$(git ls-remote --get-url | sed 's|.git$||')"
 [ -n "${_URL}" ] || _URL="https://github.com/${APPVEYOR_REPO_NAME}${TRAVIS_REPO_SLUG}"
 
 # Detect host OS
@@ -44,7 +44,6 @@ CODESIGN_KEY="$(realpath '.')/vszakats.p12"
   fi
 )
 [ -f "${CODESIGN_KEY}" ] || unset CODESIGN_KEY
-which osslsigncode > /dev/null 2>&1 || unset CODESIGN_KEY
 
 case "${os}" in
   mac)
@@ -85,6 +84,8 @@ for _cpu in '32' '64'; do
   fi
 
   export _CCVER="$("${_CCPREFIX}gcc" -dumpversion | sed -e 's/\<[0-9]\>/0&/g' -e 's/\.//g')"
+
+  which osslsigncode > /dev/null 2>&1 || unset CODESIGN_KEY
 
   ./zlib.sh         "${ZLIB_VER_}" "${_cpu}"
   ./libidn.sh     "${LIBIDN_VER_}" "${_cpu}"
