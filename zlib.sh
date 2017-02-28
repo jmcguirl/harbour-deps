@@ -29,9 +29,11 @@ _cpu="$2"
   export LOC="${LDFLAGS} -fno-ident -D_LARGEFILE64_SOURCE=1 -D_LFS64_LARGEFILE=1"
   [ "${_BRANCH#*extmingw*}" = "${_BRANCH}" ] && [ "${_cpu}" = '32' ] && LOC="${LOC} -fno-asynchronous-unwind-tables"
 
-  # Add 'all' option to build .dll
   # shellcheck disable=SC2086
   make -f win32/Makefile.gcc ${options} clean > /dev/null
+  # Add 'all' option to build .dll
+  # shellcheck disable=SC2086
+  make -f win32/Makefile.gcc ${options} > /dev/null
 
   if ls ./*.dll > /dev/null 2>&1; then
     ls -l ./*.dll
