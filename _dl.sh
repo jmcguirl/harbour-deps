@@ -38,7 +38,7 @@ python -m pip --disable-pip-version-check install --upgrade pip
 python -m pip install pefile
 
 alias curl='curl -fsS --connect-timeout 15 --retry 3'
-#gpgbin=gpg
+gpgbin=gpg
 #which gpg2 > /dev/null && gpgbin=gpg2
 alias gpg="${gpgbin} --batch --keyserver-options debug --keyserver-options timeout=60 --keyid-format LONG"
 
