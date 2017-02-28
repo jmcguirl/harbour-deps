@@ -44,7 +44,7 @@ CODESIGN_KEY="$(realpath '.')/vszakats.p12"
   fi
 )
 [ -f "${CODESIGN_KEY}" ] || unset CODESIGN_KEY
-which osslsigncode > /dev/null || unset CODESIGN_KEY
+which osslsigncode > /dev/null 2>&1 || unset CODESIGN_KEY
 
 case "${os}" in
   mac)
