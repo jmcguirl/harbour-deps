@@ -34,8 +34,8 @@ case "$(uname)" in
 esac
 
 # Install required component
-python -m pip --disable-pip-version-check install --upgrade pip
-python -m pip install pefile
+python -m pip --quiet --disable-pip-version-check install --upgrade pip
+python -m pip --quiet install pefile
 
 alias curl='curl -fsS --connect-timeout 15 --retry 3'
 gpgbin=gpg
