@@ -44,7 +44,9 @@ alias gpg="${gpgbin} --dry-run --batch --keyserver-options debug --keyserver-opt
 
 gpg_recv_keys() {
   if ! gpg -q --keyserver hkps://pgp.mit.edu --recv-keys "$@"; then
-    gpg -q --keyserver hkps://sks-keyservers.net --recv-keys "$@"
+    if ! gpg -q --keyserver hkps://sks-keyservers.net --recv-keys "$@"; then
+      true  #### test test test
+    fi
   fi
 }
 
