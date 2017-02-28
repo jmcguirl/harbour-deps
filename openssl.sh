@@ -41,12 +41,11 @@ _cpu="$2"
     [ "${_cpu}" = '64' ] && export SHARED_RCFLAGS='--target=pe-x86-64'
     options="${options} -m${_cpu} -static-libgcc no-rc5 no-ssl3"
   else
-     options="${options} no-filenames"
+    options="${options} no-filenames"
   fi
   if [ "${_cpu}" = '64' ]; then
     options="${options} enable-ec_nistp_64_gcc_128"
-    # Requires mingw 5.0 or upper
-    options="${options} -Wl,--high-entropy-va -Wl,--image-base,0x151000000"
+    [ "${_CCVER}" -ge '05' ] && options="${options} -Wl,--high-entropy-va -Wl,--image-base,0x151000000"
   fi
   [ "${_BRANCH#*extmingw*}" = "${_BRANCH}" ] && [ "${_cpu}" = '32' ] && options="${options} -fno-asynchronous-unwind-tables"
 
