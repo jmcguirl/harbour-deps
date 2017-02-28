@@ -39,8 +39,8 @@ python -m pip install pefile
 
 alias curl='curl -fsS --connect-timeout 15 --retry 3'
 gpgbin=gpg
-#which gpg2 > /dev/null && gpgbin=gpg2
-alias gpg="${gpgbin} --batch --keyserver-options debug --keyserver-options timeout=60 --keyid-format LONG"
+which gpg2 > /dev/null && gpgbin=gpg2
+alias gpg="${gpgbin} --dry-run --batch --keyserver-options debug --keyserver-options timeout=60 --keyid-format LONG"
 
 gpg_recv_keys() {
   if ! gpg -q --keyserver hkps://pgp.mit.edu --recv-keys "$@"; then
