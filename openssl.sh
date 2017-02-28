@@ -51,6 +51,7 @@ _cpu="$2"
   [ "${_BRANCH#*extmingw*}" = "${_BRANCH}" ] && [ "${_cpu}" = '32' ] && options="${options} -fno-asynchronous-unwind-tables"
 
   # AR=, NM=, RANLIB=
+  unset CC
 
   # shellcheck disable=SC2086
   ./Configure ${options} shared \
