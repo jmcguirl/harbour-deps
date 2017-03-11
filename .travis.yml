@@ -28,7 +28,7 @@ before_install:
       sudo apt-get -yq --no-install-suggests --no-install-recommends --force-yes install wine;
     fi;
 script:
-  - ./_build.sh;
+  - ./_build.sh
 notifications:
   email: false
 git:
