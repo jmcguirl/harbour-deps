@@ -19,21 +19,15 @@ addons:
   apt:
     packages: [ binutils-mingw-w64, gcc-mingw-w64, p7zip-full, gnupg-curl, dos2unix, realpath ]
 before_install:
-  - echo '! TRAVIS-0';
-    if [ "$TRAVIS_OS_NAME" = 'osx' ]; then
-      echo '! TRAVIS-a';
+  - if [ "$TRAVIS_OS_NAME" = 'osx' ]; then
       brew install p7zip mingw-w64 jq osslsigncode dos2unix gpg gnu-sed wine;
-      echo '! TRAVIS-b';
     elif [ "$TRAVIS_OS_NAME" = 'linux' ] && [ "$TRAVIS_SUDO" = 'true' ]; then
       sudo dpkg --add-architecture i386;
       sudo apt-get update;
       sudo apt-get -yq --no-install-suggests --no-install-recommends --force-yes install wine;
     fi;
-    echo '! TRAVIS-c';
 script:
-  - echo '! TRAVIS-1';
-    ./_build.sh;
-    echo '! TRAVIS-2';
+  - ./_build.sh
 notifications:
   email: false
 git:
