@@ -28,7 +28,9 @@ before_install:
       sudo apt-get -yq --no-install-suggests --no-install-recommends --force-yes install wine;
     fi;
 script:
-  - ./_build.sh
+  - echo '! TRAVIS-1';
+    ./_build.sh;
+    echo '! TRAVIS-2';
 notifications:
   email: false
 git:
