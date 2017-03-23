@@ -9,14 +9,9 @@
 #   Linux
 #     p7zip-full binutils-mingw-w64 gcc-mingw-w64 gnupg-curl jq osslsigncode dos2unix realpath wine
 #   Mac:
-#     brew install p7zip mingw-w64 jq osslsigncode dos2unix gpg gnu-sed
-#     brew cask install wine-devel
-
-echo "HERE-1"
+#     brew install p7zip mingw-w64 jq osslsigncode dos2unix gpg gnu-sed wine
 
 cd "$(dirname "$0")" || exit
-
-echo "HERE-2"
 
 export _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH}"
 [ -n "${_BRANCH}" ] || _BRANCH="$(git symbolic-ref --short --quiet HEAD)"
@@ -24,8 +19,6 @@ export _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT
 export _URL=''
 which git > /dev/null 2>&1 && _URL="$(git ls-remote --get-url | sed 's|.git$||')"
 [ -n "${_URL}" ] || _URL="https://github.com/${APPVEYOR_REPO_NAME}${TRAVIS_REPO_SLUG}"
-
-echo "HERE-3"
 
 # Detect host OS
 case "$(uname)" in
@@ -89,8 +82,7 @@ for _cpu in '32' '64'; do
     export _WINE='wine'
   fi
 
-  export _CCVER
-  _CCVER="$("${_CCPREFIX}gcc" -dumpversion | sed -e 's/\<[0-9]\>/0&/g' -e 's/\.//g')"
+  export _CCVER="$("${_CCPREFIX}gcc" -dumpversion | sed -e 's/\<[0-9]\>/0&/g' -e 's/\.//g')"
 
   which osslsigncode > /dev/null 2>&1 || unset CODESIGN_KEY
 

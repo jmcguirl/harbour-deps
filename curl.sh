@@ -18,7 +18,7 @@ _cpu="$2"
 
   # Prepare build
 
-  # TOFIX: This will not create a fully release-compliant file tree,
+  # FIXME: This will not create a fully release-compliant file tree,
   #        f.e. documentation will be incomplete.
   [ -f 'Makefile' ] || ./buildconf.bat
 
@@ -60,7 +60,7 @@ _cpu="$2"
   # an inflated implib and a non-standard list of exported functions.
   echo 'EXPORTS' > libcurl.def
   grep -h '^CURL_EXTERN ' include/curl/*.h \
-  | sed "s/CURL_EXTERN \([a-zA-Z_\* ]*\)[\* ]\([a-z_]*\)(\(.*\)$/\2/g" \
+  | sed 's/CURL_EXTERN \([a-zA-Z_\* ]*\)[\* ]\([a-z_]*\)(\(.*\)$/\2/g' \
   | grep -v '^$' \
   | sort | tee -a libcurl.def
   CURL_LDFLAG_EXTRAS_DLL="${CURL_LDFLAG_EXTRAS_DLL} ../libcurl.def"
