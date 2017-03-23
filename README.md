@@ -21,9 +21,11 @@
   - Binaries are using [DWARF](https://en.wikipedia.org/wiki/DWARF) in x86 and
     [SEH](https://en.wikipedia.org/wiki/Microsoft-specific_exception_handling_mechanisms#SEH)
     in x64 builds.
-  - Components are verified using SHA-256 hashes and also GPG signatures where available.
-  - Generated binaries are [reproducible](https://reproducible-builds.org/), meaning
-    they will have the same hash given the same input sources and C compiler.
+  - Components are verified using SHA-256 hashes and also GPG signatures where
+    available.
+  - Generated binaries are [reproducible](https://reproducible-builds.org/),
+    meaning they will have the same hash given the same input sources and C
+    compiler.
   - Because MSYS2 is updated before each build, subsequent builds _may_ use
     different versions/builds of the compiler toolchain. This may result in
     different generated binaries given otherwise unchanged source code and
@@ -38,20 +40,18 @@
     with fair confidence of getting accepted.
   - Optional support for [C-ares](https://c-ares.haxx.se/), [librtmp](https://rtmpdump.mplayerhq.hu/) and for [WinSSL](https://en.wikipedia.org/wiki/Cryptographic_Service_Provider) as a fall-back backend.
   - Generated binaries are uploaded to [VirusTotal](https://www.virustotal.com/).
-  - If you need a download with a stable checksum, link to the penultimate version.
-    Only the current latest versions are kept updated with newer dependencies.
+  - If you need a download with a stable checksum, link to the penultimate
+    version. Only the current latest versions are kept updated with newer
+    dependencies.
   - The build process is multi-platform and able to cross-build Windows
     executables from \*nix hosts (Linux and macOS tested.)
-  - Reproducibility requires MinGW-w64 5.1.0 (with `binutils` ~2.25) or upper.
-    Older versions will leave certain bytes at random state in the generated
-    `.exe` file. It means that of current CI machines only the Windows and
-    macOS-based ones are usable, the newest available Linux (Ubuntu 14.04)
-    isn't. Also, because MinGW-w64 builds on different platforms generate
-    slightly different output, the packages made on these different platforms
-    won't currently have identical hashes.
+  - Packages created accross different host platforms won't currently have
+    identical hashes. The reason for this is the slightly different build
+    options and versions of the `mingw-w64` and `binutils` tools.
   - Code signing is implemented but not enabled yet for reasons below:
-    - There doesn't seem to exist a way to get _free_ code signing certificates,
-      so only a self-signed certificate could be used, which is not very useful.
+    - There doesn't seem to exist a way to get _free_ code signing
+      certificates, so only a self-signed certificate could be used, which is
+      not very useful.
     - The portable tool `osslsigncode` used for signing
       [will always embed](https://sourceforge.net/p/osslsigncode/bugs/8/) the
       current timestamp
